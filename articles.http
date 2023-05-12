@@ -1,0 +1,30 @@
+GET http://localhost:3000/articles?take=10&skip=0
+
+### //separer les requetes on fait ###
+GET http://localhost:3000/articles/1 
+// get article by id//
+
+###
+POST http://localhost:3000/articles
+Content-Type: application/json
+//like :
+
+{
+  "name": "article1",
+  "genre": "informatique"
+}
+//sous forme json :
+### 
+PATCH  http://localhost:3000/articles/1
+Content-Type: application/json  
+//je veux envoyer des donnees en format json :
+
+//like :
+{
+ "name":"articleUpdated"
+}
+//text to objet json : parse.js
+
+
+### Delete User
+DELETE http://localhost:3000/articles/1

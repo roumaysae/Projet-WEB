@@ -1,0 +1,30 @@
+GET http://localhost:3000/users
+
+### //separer les requetes on fait ###
+GET http://localhost:3000/users/1 
+// get user by id//erreur*****
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+//like :
+
+{
+  "name": "John Doe",
+  "email": "johndoe@example.com"
+}
+//sous forme json :
+### 
+PATCH  http://localhost:3000/users/1
+Content-Type: application/json  
+//je veux envoyer des donnees en format json :
+
+//like :
+{
+ "name":"NameUpdated"
+}
+//text to objet json : parse.js
+
+
+### Delete User
+DELETE http://localhost:3000/users/1

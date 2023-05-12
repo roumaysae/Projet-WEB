@@ -1,0 +1,29 @@
+GET http://localhost:3000/categories
+
+### //separer les requetes on fait ###
+GET http://localhost:3000/categories/1 
+// get categorie by id//erreur*****
+
+###
+POST http://localhost:3000/categories
+Content-Type: application/json
+//like :
+
+{
+  "name": "categorie1",
+}
+//sous forme json :
+### 
+PATCH  http://localhost:3000/categories/1
+Content-Type: application/json  
+//je veux envoyer des donnees en format json :
+
+//like :
+{
+ "name":"CategoriUpdated"
+}
+//text to objet json : parse.js
+
+
+### Delete User
+DELETE http://localhost:3000/categories/1
