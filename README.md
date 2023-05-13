@@ -1,2 +1,2 @@
 # Projet-WEB
-développer un Blog 
+développer un Blog API with node js , prisma and mysql
