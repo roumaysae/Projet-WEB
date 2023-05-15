@@ -1,0 +1,33 @@
+GET http://localhost:3000/articles
+
+
+### //sepaser les requetes on fait ###
+GET http://localhost:3000/articles/3
+
+// get article by id//
+###
+POST http://localhost:3000/articles
+Content-Type: application/json
+
+//like :
+{
+  "titre": "titre1",
+  "contenue": "content1",
+  "image": "img1",
+  "published": true,
+  "userId": 17
+}
+//sous forme json :
+### 
+PATCH http://localhost:3000/articles/5
+Content-Type: application/json
+
+{
+  "titre": "Updatedart",
+  "contenue": "lorem....",
+  "image": "IMG",
+  "published": true
+}
+//text to objet json : parse.js
+### Delete User
+DELETE http://localhost:3000/articles/5

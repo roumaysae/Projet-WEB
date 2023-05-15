@@ -1,0 +1,38 @@
+GET http://localhost:3000/users
+
+### 
+GET http://localhost:3000/users/1 
+// get user by id
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+
+"email": "SOUKAINA@gmail.com",
+ "password":"0000", 
+  "name":"SOUKA",
+  "role":"AUTHOR"
+}
+//sous forme json :
+
+### Delete User
+DELETE http://localhost:3000/users/32
+
+
+### 
+PATCH  http://localhost:3000/users/8
+Content-Type: application/json  
+
+//je veux envoyer des donnees en format json :
+//like :
+{
+  "name":"aziz",
+  "email":"aziz@gmail.com",
+  "password":"1222",
+  "role":"ADMIN"
+
+}
+//text to objet json : parse.js
+

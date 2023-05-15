@@ -1,35 +1,81 @@
 var express = require("express");
 var router = express.Router();
+const { PrismaClient } = require("@prisma/client");
+const bodyParser = require("body-parser");
 
-/* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
+const prisma = new PrismaClient();
+express().use(bodyParser.json);
+express().use(express.json);
+
+router.get("/", async (req, res) => {
+  try {
+    const user = await prisma.user.findMany({
+      skip: req.params.skip,
+      take: req.params.take,
+    });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+}); //get all users (nbr of element )& skip (take offset à partir de laquelle on extrait les données de la base)
+
+router.get("/:id(\\d+)", async (req, res) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: +req.params.id },
+    });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}); //get user by id identif
+
+router.post("/", async (req, res) => {
+  try {
+    const user = await prisma.user.create({
+      data: {
+        email: req.body.email,
+        password: req.body.password,
+        name: req.body.name,
+        role: req.body.role,
+      },
+    });
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}); //add user avec un nouveau id auto-increament
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const user = await prisma.user.delete({
+      where: { id: +req.params.id },
+    });
+    res.status(200).json(user); //delete user avec l id donne
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
-router.get("/users", (req, res) => {
-  const take = parseInt(req.query.take);
-  const skip = parseInt(req.query.skip);
-  res.send(`Recuperation de ${take} elements de la position ${skip}`);
-});
-
-router.get("/users:id", (req, res) => {
-  const userid = req.params.id;
-  res.send(`Récupérer commentaire avec l'id ${userid}`);
-});
-
-router.post("/users", (req, res) => {
-  const Newuser = req.body;
-  res.send("ajoutez un nouveau user :");
-});
-
-router.patch("/users", (req, res) => {
-  const updatedUser = req.body;
-  res.send("user is updated ");
-});
-
-router.delete("/users:id", (req, res) => {
-  const userid = req.params.id;
-  res.send(`user with id ${userid} is deleted`);
+router.patch("/:id", async (req, res) => {
+  try {
+    const user = await prisma.user.update({
+      where: {
+        id: +req.params.id,
+      },
+      data: {
+        email: req.body.email,
+        password: req.body.password,
+        name: req.body.name,
+        role: req.body.role,
+      },
+    });
+    res.json(user); //update user avec le nouveau id
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
