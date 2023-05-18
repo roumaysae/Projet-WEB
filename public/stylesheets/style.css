@@ -6,3 +6,34 @@ body {
 a {
   color: #00B7FF;
 }
+
+.bi{
+  color:black;
+  font-size: 20px;
+}
+
+.btn:hover{
+ background-color: #553a7d;
+  font-size: 30px;
+}
+  H1{
+    color: #553a7d;
+  text-align: center;
+  border-bottom:5px solid #553a7d ;
+  width: auto;
+  }
+.container .row .col .card img{
+margin : auto;
+}
+/* .row .col-6 .Mail,.Adress,.Tele{
+margin: 10px;
+  padding: 15px;
+}
+*/
+@media (min-width: 768px) { 
+.container .row .col .card .card-body{
+float: inline-start;
+
+}
+}
+

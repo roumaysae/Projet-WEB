@@ -11,7 +11,7 @@ const app = express();
 const categoriesRouter = require("./routes/categories");
 const articlesRouter = require("./routes/articles");
 const commentairesRouter = require("./routes/Commentaires");
-
+const faker = require("./seeds/seed");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
