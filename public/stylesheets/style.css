@@ -36,4 +36,188 @@ float: inline-start;
 
 }
 }
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400&amp;display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&amp;display=swap");
+/* -----------------------------------------------
+				CSS Styles 
+--------------------------------------------------
 
+    Template Name: NoonPost. - Personal Blog HTML Template
+    
+--------------------------------------------------
+
+Table of Content
+
+    - Global
+    - Helpers
+    - Section
+    - Navigation
+    - Widget
+    - Categorie
+    - Sliders
+    - About
+    - Contact 
+    - Footer
+	  - Preloader 
+    - Responsive
+    - Dark
+ 
+
+----------------------------------- */
+/* -----------------------------------
+		 Global
+----------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  outline: none !important;
+  list-style: none !important;
+}
+
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  background-color: #F9F9FF;
+  color: #94979e;
+  font-weight: 400;
+  position: relative;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Inter Tight", sans-serif;
+  font-weight: 900;
+  line-height: 1.4;
+  color: #131315;
+  margin: 0;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 36px;
+}
+
+h3 {
+  font-size: 28px;
+}
+
+h4 {
+  font-size: 25px;
+}
+
+h5 {
+  font-size: 22px;
+}
+
+h6 {
+  font-size: 18px;
+}
+
+p:first-letter,
+h5:first-letter {
+  text-transform: capitalize;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover, a:focus {
+  text-decoration: none;
+}
+
+/* img {
+  max-width: 100%;
+  height: auto;
+} */
+
+ul {
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+.list-inline li {
+  display: inline-block;
+}
+
+.max-width-400 {
+  width: 400px;
+}
+
+.inner-width {
+  width: 600px;
+  margin: auto;
+}
+
+.form-control:focus {
+  outline: none !important;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.container-fluid {
+  max-width: 1350px;
+}
+
+.container-wrap {
+  padding: 0px 50px;
+  width: 100%;
+}
+
+/* .main {
+  margin-top: 84px;
+  border-top: 1px solid #F9F9FF;
+} */
+
+.display-none {
+  display: none !important;
+}
+
+.display-block {
+  display: block !important;
+}
+
+.blog-list {
+  padding-left: 30px;
+}
+
+#user-dropdown {
+    color: #fff;
+  font-weight: bold;  
+  padding: 10px;
+  margin: 10px;
+  align-items: end;
+}
+
+#user-dropdown .actions  {
+font-weight: bold;
+color: #fff;
+padding: 0 20px;
+margin: 0 20px;
+float: left;
+}
+
+#navbar button{
+  background-color: #553a7d;
+font-weight: bold;
+color: #fff;
+padding: 0 10px;
+margin: 0 10px;
+}

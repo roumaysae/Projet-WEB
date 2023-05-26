@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
       message: err.message,
     });
   }
-}); //get all users (nbr of element )& skip (take offset à partir de laquelle on extrait les données de la base)
+}); //get all  (nbr of element )& skip (take offset à partir de laquelle on extrait les données de la base)
 
 router.get("/:id(\\d+)", async (req, res) => {
   try {

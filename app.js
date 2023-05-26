@@ -5,18 +5,47 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var bodyParser = require("body-parser");
 const app = express();
-
-// ... Other Express configuration and routes
-
+const cors = require("cors");
+const { PrismaClient } = require("@prisma/client");
 const categoriesRouter = require("./routes/categories");
 const articlesRouter = require("./routes/articles");
 const commentairesRouter = require("./routes/Commentaires");
-const faker = require("./seeds/seed");
+var userArtrouter = require("./routes/userArt");
+const session = require("express-session");
+const passport = require("./Config/passport");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
-// view engine setup
+//request from/to the same endpoint is causing me a CORS error
+app.use(
+  cors({
+    origin: "http://127.0.0.1:5500",
+  })
+);
 
+///
+
+const prisma = new PrismaClient();
+
+app.use(
+  session({
+    secret: "your-secret-key",
+    resave: false,
+    saveUninitialized: false,
+    // Configure the session store based on your requirements
+    // For example, you can use the default in-memory store for development
+    // and a persistent store like Redis or MongoDB for production.
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use((req, res, next) => {
+  req.prisma = prisma;
+  next();
+});
+
+// view engine setup
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,6 +58,7 @@ app.use("/categories", categoriesRouter);
 app.use("/articles", articlesRouter);
 app.use("/Commentaires", commentairesRouter);
 app.use("/", indexRouter);
+app.use("/userArt", userArtrouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -51,6 +81,6 @@ app.use(function (err, req, res, next) {
   res.send(err);
 });
 
-app.listen(3000, (_) => console.log("server started !!!"));
+// app.listen(3000, (_) => console.log("server started !!!"));
 
 module.exports = app;

@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const bodyParser = require("body-parser");
+const authMiddleware = require("../middlewares/auth");
 
 const prisma = new PrismaClient();
 express().use(bodyParser.json);
@@ -9,9 +10,12 @@ express().use(express.json);
 
 router.get("/", async (req, res) => {
   try {
-    const article = await prisma.Article.findMany({
-      skip: req.params.skip,
-      take: req.params.take,
+    const article = await prisma.article.findMany({
+      skip: +req.query.skip,
+      take: +req.query.take,
+      orderBy: {
+        createdAt: "desc",
+      },
     });
     res.json(article);
   } catch (err) {
@@ -25,6 +29,10 @@ router.get("/:id(\\d+)", async (req, res) => {
   try {
     const article = await prisma.Article.findUnique({
       where: { id: +req.params.id },
+      include: {
+        user: true,
+        Commentaire: true,
+      },
     });
     res.json(article);
   } catch (err) {
@@ -32,7 +40,7 @@ router.get("/:id(\\d+)", async (req, res) => {
   }
 }); //get ARTICLE by id identif
 
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
     const article = await prisma.article.create({
       data: {
@@ -42,7 +50,7 @@ router.post("/", async (req, res) => {
         published: req.body.published,
         user: {
           connect: {
-            id: req.body.userId,
+            id: req.user.id,
           },
         },
       },
@@ -57,8 +65,8 @@ router.post("/", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    const article = await prisma.Article.delete({
-      where: { id: +req.params.id },
+    const article = await prisma.article.delete({
+      where: { id: req.params.id },
     });
     res.status(200).json(article); //delete ARTICLE avec l id donne
   } catch (err) {

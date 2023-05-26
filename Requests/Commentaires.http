@@ -1,7 +1,7 @@
 GET http://localhost:3000/commentaires
 
 ### //separer les requetes on fait ###
-GET http://localhost:3000/commentaires/1 
+GET http://localhost:3000/commentaires/211312
 // get categorie by id//erreur*****
 
 ###

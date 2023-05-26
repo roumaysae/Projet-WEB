@@ -1,22 +1,23 @@
-GET http://localhost:3000/articles
+GET http://localhost:3000/articles/?take=10&skip=0
 
 
 ### //sepaser les requetes on fait ###
-GET http://localhost:3000/articles/3
+GET http://localhost:3000/articles/16
 
 // get article by id//
 ###
 POST http://localhost:3000/articles
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjQyNCwiZW1haWwiOiJBbmdpZV9Ub3JwaHlAaG90bWFpbC5jb20iLCJuYW1lIjoiSGVsZW4gS29ub3BlbHNraSIsInJvbGUiOiJBVVRIT1IiLCJpYXQiOjE2ODQ4NTc0NjZ9.zT_ixt7METvWklVlG0us8Tan_z1bBknT-LJM1b7pg_U
 
 //like :
 {
   "titre": "titre1",
   "contenue": "content1",
   "image": "img1",
-  "published": true,
-  "userId": 17
+  "published": true
 }
+
 //sous forme json :
 ### 
 PATCH http://localhost:3000/articles/5

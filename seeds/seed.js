@@ -5,11 +5,20 @@ const prisma = new PrismaClient();
 async function seed() {
   try {
     // Delete existing data
+    await deleting();
     await prisma.commentaire.deleteMany();
     await prisma.article.deleteMany();
     await prisma.categorie.deleteMany();
     await prisma.user.deleteMany();
+    // await prisma.userArt.deleteMany();
 
+    async function deleting() {
+      await prisma.$executeRaw`DELETE FROM articleCategory;`;
+      await prisma.$executeRaw`DELETE FROM commentaire;`;
+      await prisma.$executeRaw`DELETE FROM article;`;
+      await prisma.$executeRaw`DELETE FROM categorie;`;
+      await prisma.$executeRaw`DELETE FROM user;`;
+    }
     //10 users ayant le role AUTHOR:
     const users = await Promise.all(
       Array.from({ length: 10 }).map(async () => {
@@ -69,6 +78,7 @@ async function seed() {
           },
         },
       });
+
       //creation de 0 à 20 commentaires pour chaque article :
       for (let j = 0; j < faker.number.int({ min: 5, max: 20 }); j++) {
         await prisma.commentaire.create({
@@ -79,8 +89,14 @@ async function seed() {
           },
         });
       }
+      for (const category of categorieT) {
+        await prisma.$executeRaw`
+                INSERT INTO ArticleCategory (articleId, categorieId)
+                VALUES (${article.id}, ${category.id})
+                ON DUPLICATE KEY UPDATE articleId=articleId
+              `;
+      }
     }
-
     console.log("Data seeding.... completed !!!");
   } catch (error) {
     console.error(error);

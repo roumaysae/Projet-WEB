@@ -25,23 +25,35 @@ enum Role {
 }
 
 model Article {
-  id          Int           @id @default(autoincrement())
-  titre       String
-  contenue    String? //facultatif
-  image       String?
-  createdAt   DateTime      @default(now()) //pour la creer definitvement le moment de creation ca va pas changer  
-  updatedAt   DateTime      @updatedAt
-  published   Boolean       @default(false)
-  userId      Int //la cle etrangerre de l'user qui a cree le post
-  user        User          @relation(fields: [userId], references: [id]) //un article est associe à un et un seul utilisateur
-  Categorie   Categorie[] //0 ou plusieur categorie   avoir un article
-  Commentaire Commentaire[] // 0 ou plusieurs commentaire dans un article
+  id              Int               @id @default(autoincrement())
+  titre           String
+  contenue        String? //facultatif
+  image           String?
+  createdAt       DateTime          @default(now()) //pour la creer definitvement le moment de creation ca va pas changer  
+  updatedAt       DateTime          @updatedAt
+  published       Boolean           @default(false)
+  userId          Int //la cle etrangerre de l'user qui a cree le post
+  user            User              @relation(fields: [userId], references: [id]) //un article est associe à un et un seul utilisateur
+  Categorie       Categorie[] //0 ou plusieur categorie   avoir un article
+  Commentaire     Commentaire[] // 0 ou plusieurs commentaire dans un article
+  ArticleCategory ArticleCategory[]
+}
+
+model ArticleCategory {
+  articleId   Int
+  categorieId Int
+  //relation Many to Many
+  article     Article   @relation(fields: [articleId], references: [id])
+  categorie   Categorie @relation(fields: [categorieId], references: [id])
+
+  @@id([articleId, categorieId])
 }
 
 model Categorie {
-  id       Int       @id @default(autoincrement())
-  nom      String
-  articles Article[] //0 ou plusieurs article dans une categorie
+  id              Int               @id @default(autoincrement())
+  nom             String
+  articles        Article[] //0 ou plusieurs article dans une categorie
+  ArticleCategory ArticleCategory[]
 }
 
 model Commentaire {

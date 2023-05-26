@@ -10,7 +10,7 @@ express().use(express.json);
 
 router.get("/", async (req, res) => {
   try {
-    const commentaire = await prisma.Commentaire.findMany({
+    const commentaire = await prisma.commentaire.findMany({
       skip: req.params.skip,
       take: req.params.take,
     });
@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id(\\d+)", async (req, res) => {
   try {
-    const commentaire = await prisma.Commentaire.findUnique({
+    const commentaire = await prisma.commentaire.findUnique({
       where: { id: +req.params.id },
     });
     res.json(commentaire);
@@ -35,7 +35,7 @@ router.get("/:id(\\d+)", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const commentaire = await prisma.Commentaire.create({
+    const commentaire = await prisma.commentaire.create({
       data: {
         email: req.body.email,
         contenu: req.body.contenu,
@@ -52,7 +52,7 @@ router.post("/", async (req, res) => {
 //add the commentaire in the body
 router.delete("/:id", async (req, res) => {
   try {
-    const commentaire = await prisma.Commentaire.delete({
+    const commentaire = await prisma.commentaire.delete({
       where: { id: +req.params.id },
     });
     res.status(200).json(commentaire); //delete user avec l id donne
@@ -63,7 +63,7 @@ router.delete("/:id", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   try {
-    const commentaire = await prisma.Commentaire.update({
+    const commentaire = await prisma.commentaire.update({
       where: {
         id: +req.params.id,
       },
