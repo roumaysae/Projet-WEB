@@ -32,6 +32,7 @@ router.get("/:id(\\d+)", async (req, res) => {
       include: {
         user: true,
         Commentaire: true,
+        Categorie: true,
       },
     });
     res.json(article);
@@ -42,6 +43,7 @@ router.get("/:id(\\d+)", async (req, res) => {
 
 router.post("/", authMiddleware, async (req, res) => {
   try {
+    console.log(req.body);
     const article = await prisma.article.create({
       data: {
         titre: req.body.titre,
@@ -57,6 +59,7 @@ router.post("/", authMiddleware, async (req, res) => {
     });
     res.status(200).send(article);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: err.message });
   }
 });

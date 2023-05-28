@@ -27,7 +27,7 @@ enum Role {
 model Article {
   id              Int               @id @default(autoincrement())
   titre           String
-  contenue        String? //facultatif
+  contenue        String            @db.Text //facultatif
   image           String?
   createdAt       DateTime          @default(now()) //pour la creer definitvement le moment de creation ca va pas changer  
   updatedAt       DateTime          @updatedAt

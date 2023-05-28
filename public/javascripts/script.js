@@ -12,15 +12,23 @@ function getArticles(take = 20, skip = 0) {
 }
 
 // // Function to get categories
-// function getCategories() {
+function getCategories() {
+  return new Promise((resolve, reject) => {
+    fetch(`http://localhost:3000/categories`)
+      .then((response) => response.json())
+      .then((data) => resolve(data))
+      .catch((error) => reject(error));
+  });
+}
+
+// function getArticlegategorie() {
 //   return new Promise((resolve, reject) => {
-//     fetch(`${url}/categories`)
+//     fetch(`http://localhost:3000/`)
 //       .then((response) => response.json())
 //       .then((data) => resolve(data))
 //       .catch((error) => reject(error));
 //   });
 // }
-
 // //function to get all users
 // function getUsers() {
 //   return new Promise((resolve, reject) => {
@@ -58,66 +66,6 @@ function getArticles(take = 20, skip = 0) {
 // btn.onclick = function () {
 //   getComments();
 // };
-
-// Function to display the comments
-// function getComments() {
-//   fetch("http://localhost:3000/commentaires") // Remplacez l'URL avec votre endpoint correspondant aux commentaires
-//     .then((response) => response.json())
-//     .then((data) => {
-//       const commentsDiv = document.getElementById("comments");
-//       commentsDiv.innerHTML = ""; // Efface les commentaires précédents
-
-//       data.forEach((comment) => {
-//         const commentElement = document.createElement("p");
-//         commentElement.textContent = comment.content;
-//         commentsDiv.appendChild(commentElement);
-//       });
-//       const commentsContainer = document.querySelector("#comments");
-
-//       // Assurez-vous que l'élément #comments existe dans votre page HTML
-
-//       data.forEach((comment) => {
-//         // Créez un nouvel élément HTML pour chaque commentaire
-//         const commentElement = document.createElement("div");
-//         commentElement.classList.add("comment");
-
-//         // Ajoutez les informations du commentaire dans l'élément
-//         commentElement.innerHTML = `
-//           <h3>${comment.author}</h3>
-//           <p>${comment.content}</p>
-//           <span>${comment.date}</span>
-//         `;
-
-//         // Ajoutez l'élément du commentaire au conteneur des commentaires
-//         commentsContainer.appendChild(commentElement);
-//       });
-//     })
-//     .catch((error) => {
-//       console.error("Erreur lors de la récupération des commentaires:", error);
-//     });
-// }
-
-// Function to change the content based on the selected option
-// function commentaires(cmts, div) {
-//   console.log(cmts);
-//   div.innerHTML = "";
-//   let pc = document.createElement("div");
-//   pc.style.padding = "12px";
-//   for (let i = 0; i < 20; i++) {
-//     let c = document.createElement("p");
-//     pc.appendChild(c);
-//     c.innerHTML = cmts[i].contenu;
-//     pc.append(c);
-//     let line = document.createElement("hr");
-//     line.style = `border: 5px solid #73026b;
-//         border-radius: 5px;`;
-//     pc.append(line);
-//     // div.style.display='block'
-//   }
-//   div.append(pc);
-//   // div.style="transition: display 0.3s ease;"
-//   div.classList.toggle("hide");
-// }
 
 var content = document.getElementById("content");
 var homeButton = document.getElementById("navHome");
@@ -169,7 +117,7 @@ function signup(event) {
  <img src = "./images/blog/successfull signup.png" 
  style ="max-width: 80%; max-height: 80vh;object-fit: contain;display: flex;justify-content: center;align-items: center;margin:auto;">`;
       } else {
-        content.innerHTML = `<img src="./images/blog/404 error with person looking for-rafiki.png"
+        content.innerHTML = `<img src="./images/blog/400 Error Bad Request-rafiki.png"
         style ="max-width: 80%; max-height: 80vh;object-fit: contain;display: flex;justify-content: center;align-items: center;margin:auto;">`;
       }
     });
@@ -205,99 +153,18 @@ function profile() {
       if (choice == 1) {
         window.localStorage.setItem("auth_token", data.token);
         window.localStorage.setItem("auth_user", JSON.stringify(data.user));
+
         welcomeUser();
-        // for (let i = 0; i < data.length; i++) {
-        //   if (i % 4 == 0) {
-        //     var row = document.createElement("div");
-        //     row.style.padding = "10px";
-        //     row.classList.add("row");
-        //   }
+
         logoutButton.style.display = "flex";
         loginButton.style.display = "none";
         homeButton.style.display = "none";
         signupButton.style.display = "none";
         addbutton.style.display = "flex";
-
-        // let col = document.createElement("div");
-        // col.classList.add("col-md-3");
-
-        // let card = document.createElement("div");
-        // card.classList.add("card");
-        // card.style = "display: flex; flex-direction: column; height: 100%;";
-
-        // //the image of the articles
-        // let image = document.createElement("img");
-        // image.setAttribute("src", data[i].image);
-        // image.classList.add("card-img-top");
-        // card.appendChild(image);
-
-        // //the categories
-        // let categories = data[i].categories;
-        // let categrs = document.createElement("div");
-        // categrs.style = `display: flex;
-        //     justify-content: space-around;
-        //     flex-wrap: wrap;`;
-        // for (const e of categories) {
-        //   let util = document.createElement("h6");
-        //   util.innerText = e.name;
-        //   util.style = "color:#73026b;opacity:0.6;";
-        //   categrs.appendChild(util);
-        // }
-        // card.appendChild(categrs);
-
-        // //the title
-        // let title = document.createElement("h1");
-        // title.innerText = data[i].titre;
-        // title.style = "text-align: center;color: #73026b;";
-        // card.appendChild(title);
-
-        // //the content
-        // let contentDiv = document.createElement("div");
-        // contentDiv.classList.add("card-body");
-        // contentDiv.style = "flex-grow: 1;";
-
-        // //content article
-        // let articleContent = document.createElement("p");
-        // articleContent.innerText = data[i].contenue;
-        // articleContent.classList.add("card-text");
-        // articleContent.style = "text-align: center;font-weight:bold;";
-        // contentDiv.appendChild(articleContent);
-        // card.appendChild(contentDiv);
-
-        // // button
-        // let comment = document.createElement("div");
-        // comment.classList.add("col-md-5");
-        // comment.style =
-        //   "display:block;margin: auto;width:100%;display:flex;flex-direction: column;";
-        // let btn = document.createElement("button");
-        // btn.innerText = "Comments";
-        // btn.style =
-        //   "background-color:#407bff; color:white;margin-bottom:7px;margin:auto;margin-bottom: 3px;";
-        // btn.classList.add("btn");
-        // btn.setAttribute("type", "submit");
-        // let divComments = document.createElement("div");
-        // // divComments.style.display='none'
-        // console.log(data[i].commentaire);
-        // btn.onclick = function () {
-        //   commentaires(data[i].commentaire, divComments);
-        // };
-        // comment.appendChild(btn);
-        // comment.appendChild(divComments);
-        // card.append(comment);
-        // //
-        // col.appendChild(card);
-        // row.appendChild(col);
-        // content.appendChild(row);
-      }
-      // Process the data further as neede
-      else {
-        content.innerHTML = `<img src="./images/blog/404 error with person looking for-rafiki.png"
+      } else {
+        content.innerHTML = `<img src="./images/blog/401 Error Unauthorized-rafiki.png"
         style ="max-width: 80%; max-height: 80vh;object-fit: contain;display: flex;justify-content: center;align-items: center;margin:auto;">`;
       }
-      // );
-      // .catch(error => {
-      //   console.log('Error:', error.message);
-      // });
     });
 }
 
@@ -328,7 +195,7 @@ function addArticle() {
       let wrongPswd = document.createElement("img");
       wrongPswd.setAttribute(
         "src",
-        "./images/blogs/404 error with person looking for-rafiki.png"
+        "./images/blogs/401 Error Unauthorized-rafiki.png"
       );
       wrongPswd.style =
         "max-width: 100%; max-height: 100vh;object-fit: contain;display: flex;justify-content: center;align-items: center;margin:auto;";
@@ -368,12 +235,16 @@ async function changeContent(page, articleid) {
     content.innerHTML = `
 <div id="content" style="padding: 10px;">
     <div class="container-fluid" id="description" style="display: flex;justify-content: space-around;">
-      <img class="col-md-5" src="./images/blog/Blog post-rafiki.png" alt="BLOG!!">
+      <img class="col-md-5" src="./images/blog/BlogVD.png" alt="BLOG!!">
       <div class="col-md-5" style="margin: 140px auto;">
-        <h1 style="font-family: Arial;color: #022f73;font-size: 100px;">BLOGGER</h1>
-        <b>
-              <p style="margin: 20px 3px;width: 500px;color:black; text-align: center;" >Discover. Savor. Style. Your passport to a world of travel, food, and fashion awaits.<br><span style="color: #000000; align-items: center;"> BLOG ^-^ </span></p>
-          </b>
+      <h1 style="font-family: Arial;color: #022f73;font-size: 100px;">Blogging</h1>
+      <b>
+          <p style="margin: 20px 3px;width: 500px;color:black; text-align: center;">
+              the platform where passion meets the power of words, shaping a world of
+              connections and shared experiences<br><span
+                  style="color: #000000; align-items: center;"> BLOG
+                  ^-^ </span></p>
+      </b>
       </div>
     </div>
   </div>
@@ -511,25 +382,31 @@ async function changeContent(page, articleid) {
     </div>
     `;
   } else if (page === "explore") {
+    // const countartcatg = await getArticlegategorie();
+    const categories = await getCategories();
     const articles = await getArticles();
     const user = getAuthUser();
-
     html = "";
+    categories.forEach((categorie) => {
+      html += `<p style="background-color: #E6E6FA; width: 200px; border-radius: 8px; padding: 10px; color: #333; font-family: 'Georgia', serif; text-align: center; display: inline-block; margin-right: 10px; align-items : center">${categorie.nom}</p>`;
+    });
+    html += `<br> <br> <div style = " display : flex ; flex-wrap : wrap ; justify-content : space-evenly ;  align-items : center ; width : 100%"> `;
     articles.forEach((article) => {
       html += `
-        <article class="mb-4 border p-2">
-        <img src="${article.image}" class="img-fluid" style="max-height: 250px; width: 800%; object-fit: contain;" />
-        <h2 onclick="readArticle(${article.id})">le Titre : ${article.titre}</h2>
+        <article class="mb-4 border "  style =   "display : flex ;width : fit-content; flex-direction : column; align-items:start ; justify-content: space-evenly ; margin : auto ; border-radius : 20px ; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; padding-bottom: 10px">
+        <img src="${article.image}" class="img-fluid" style="max-height: 280px; width: 100%; object-fit: contain; border-radius : 20px " />
+        <h2 onclick="readArticle(${article.id})" style="padding : 0 10px">le Titre : ${article.titre}</h2>
             <button onclick="changeContent('read',${article.id})" style = "background-color: #553a7d;
-            font-weight: bold;
+            font-weight: bold;  
             color: #fff;
             padding: 0 10px;
-            margin: 0 10px;" onclick=changeContent('read')" >Read more... </button>`;
+            margin: 0 10px; border-radius : 8px" onclick=changeContent('read')" >Read more... </button>`;
       if (user != null && user.id == article.userId) {
         html += `<h6> les articles de l'user qui l'id : ${user.id}</h6>`;
       }
       html += `</article>`;
     });
+    html += "</div>";
 
     content.innerHTML = html;
   } else if (page === "logout") {
@@ -550,12 +427,16 @@ async function changeContent(page, articleid) {
     </div>
 <div id="content" style="padding: 10px;">
     <div class="container-fluid" id="description" style="display: flex;justify-content: space-around;">
-      <img class="col-md-5" src="./images/blog/Blog post-rafiki.png" alt="BLOG!!">
-      <div class="col-md-5" style="margin: 140px auto;">
-        <h1 style="font-family: Arial;color: #022f73;font-size: 100px;">BLOGGER</h1>
-        <b>
-              <p style="margin: 20px 3px;width: 500px;color:black; text-align: center;" >Discover. Savor. Style. Your passport to a world of travel, food, and fashion awaits.<br><span style="color: #000000; align-items: center;"> BLOG ^-^ </span></p>
-          </b>
+    <img class="col-md-5" src="./images/blog/BlogVD.png" alt="BLOG!!">
+    <div class="col-md-5" style="margin: 140px auto;">
+    <h1 style="font-family: Arial;color: #022f73;font-size: 100px;">Blogging</h1>
+    <b>
+        <p style="margin: 20px 3px;width: 500px;color:black; text-align: center;">
+            the platform where passion meets the power of words, shaping a world of
+            connections and shared experiences<br><span
+                style="color: #000000; align-items: center;"> BLOG
+                ^-^ </span></p>
+    </b>
       </div>
     </div>
   </div>`;
@@ -568,31 +449,38 @@ async function changeContent(page, articleid) {
   } else if ((page === "read", articleid)) {
     const article = await getArticlebyId(articleid);
     const comments = article.Commentaire;
+    // console.log(article);
+    const categories = await article.Categorie;
 
     content.innerHTML = "";
     content.innerHTML = `
-      <article class="mb-4 border p-2">
-        <h2 style="color:#DA70D6; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">le titre de l'article : ${article.titre}</h2>
-        <img src="${article.image}" class="img-fluid" style="max-height: 250px; width: 800%; object-fit: contain;" />
-        <h6>publie par ${article.user.name}</h6>
-        <h4 style="font-family: Arial, Helvetica, sans-serif; font-weight: bold;">${article.contenue}</h4>
-        <br>
-        <h5 style="color:#DA70D6; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
+    <article class="mb-4 p-2" style="background-color: #FFF;  border-radius: 8px; font-family: Arial, Helvetica, sans-serif; width: 70%; margin: auto; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);">
+    <h1 style="color: black; font-weight: bold; font-size: 60px; padding: 40px 4px;">${article.titre}</h1>
+    <img src="${article.image}" class="img-fluid" style="height: 500px; width: 100%; object-fit: contain; border-radius: 8px; margin-bottom: 10px;">
+    <h6 style="font-family: Arial, Helvetica, sans-serif; color: #333; font-weight: bolder; margin: 10px; font-size:36px">Publié par ${article.user.name}</h6>
+    <h4 style="font-weight: bold; padding : 0 50px">${article.contenue}</h4>
+</article>`;
+
+    //affiche les categories :
+    content.innerHTML += `<h2 style="color: #DA70D6; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">Catégorie(s) de cet Article :</h2>`;
+    categories.forEach((Categorie) => {
+      content.innerHTML += `   
+      <p style="background-color: #E6E6FA; width: 200px; border-radius: 8px; padding: 10px; color: #333; font-family: 'Georgia', serif; text-align: center; display: inline-block; margin-right: 10px;">${Categorie.nom}</p>`;
+    });
+
+    content.innerHTML += `   <h5 style="font-family: Arial, Helvetica, sans-serif; font-weight: bolder; color: #DA70D6; ">
         Commentaires :
       </h5>
       `;
-
     // Iterate over comments and generate HTML for each comment
-
     comments.forEach((comment, index) => {
       content.innerHTML += `
       <div class="comment">
-        <p style="color: #C71585; font-weight: bold;">Email: ${comment.email}</p>
+        <p style="color: #C71585; font-weight: bold;">${comment.email}</p>
           <h6>${comment.contenu} de l'article : ${comment.articleId}</h6>
           <hr style="border: black 2px dashed ;">
         </div>
       `;
-
       // Add a separator between comments except for the last comment
       if (comment.cotenu === " ") {
         content.innerHTML += `Pas de commentaires sur cette article id : ${article.id}  `;
@@ -624,17 +512,6 @@ function getArticlebyId(id) {
   });
 }
 
-//fucntion to get comments
-
-// function getCommentairebyId(id) {
-//   return new Promise((resolve, reject) => {
-//     fetch(`http://localhost:3000/Commentaires/${id}`)
-//       .then((response) => response.json())
-//       .then((data) => resolve(data))
-//       .catch((error) => reject(error));
-//   });
-// }
-
 function getSignup() {
   return new Promise((resolve, reject) => {
     fetch(`http://localhost:3000/signup`)
@@ -643,3 +520,17 @@ function getSignup() {
       .catch((error) => reject(error));
   });
 }
+
+// //the categories
+// let categories = data[i].categories;
+// let categrs = document.createElement("div");
+// categrs.style = `display: flex;
+//     justify-content: space-around;
+//     flex-wrap: wrap;`;
+// for (const e of categories) {
+//   let util = document.createElement("h6");
+//   util.innerText = e.name;
+//   util.style = "color:#73026b;opacity:0.6;";
+//   categrs.appendChild(util);
+// }
+// card.appendChild(categrs);
