@@ -1,12 +1,12 @@
 var express = require("express");
 var router = express.Router();
 const { PrismaClient } = require("@prisma/client");
-const bodyParser = require("body-parser");
+const bodyParser = require("body-parser"); // ??
 const authMiddleware = require("../middlewares/auth");
 
 const prisma = new PrismaClient();
-express().use(bodyParser.json);
-express().use(express.json);
+express().use(bodyParser.json); // ?
+express().use(express.json); // ? déjà fait dans app.js
 
 router.get("/", async (req, res) => {
   try {
