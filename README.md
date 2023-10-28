@@ -1,4 +1,6 @@
 # Projet-WEB
+![blog](https://github.com/roumaysae/Projet-WEB/assets/81052986/58d11337-20f6-454c-8c61-7596e17c767f)
+
 Projet de développement d'un Blog avec Node.js, Express.js, Prisma, MySQL, CSS, HTML, JavaScript, Bootstrap, JWT et requêtes HTTP : Ce projet consiste à développer un blog utilisant des technologies web modernes pour créer une plateforme de publication en ligne. Le backend est développé avec Node.js et Express.js, tandis que Prisma est utilisé comme ORM (Object-Relational Mapping) pour interagir avec la base de données MySQL.
 
 Fonctionnalités Gestion des articles : création, édition et suppression d'articles. Interface utilisateur réactive et esthétique grâce à CSS, HTML et Bootstrap. Authentification et autorisation des utilisateurs avec JSON Web Tokens (JWT). Communication entre le front-end et le back-end via des requêtes HTTP. Laragon (pour la configuration de l'environnement de développement local)
